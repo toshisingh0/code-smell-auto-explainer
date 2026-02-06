@@ -21,13 +21,20 @@
 
 {{-- RESULT SHOW --}}
 @if(isset($result))
+
     @if($result['detected'])
+
         <h3>❌ {{ $result['explanation']['smell'] }}
             ({{ $result['explanation']['severity'] }})
         </h3>
 
-        <p><strong>Problem:</strong> {{ $result['explanation']['problem'] }}</p>
-        <p><strong>Why bad:</strong> {{ $result['explanation']['why_bad'] }}</p>
+        <p><strong>Problem:</strong>
+            {{ $result['explanation']['problem'] }}
+        </p>
+
+        <p><strong>Why bad:</strong>
+            {{ $result['explanation']['why_bad'] }}
+        </p>
 
         <p><strong>Solution:</strong></p>
         <ul>
@@ -35,10 +42,26 @@
                 <li>{{ $sol }}</li>
             @endforeach
         </ul>
+
+        @foreach($result['explanation']['metrics'] as $k => $v)
+
+            @if(is_array($v))
+                <li>{{ ucfirst($k) }} :
+                    {{ implode(', ', array_keys($v)) }}
+                </li>
+            @else
+                <li>{{ ucfirst($k) }} : {{ $v }}</li>
+            @endif
+
+        @endforeach
+
+
     @else
-        <p>✅ No Fat Controller detected</p>
+        <p>✅ {{ $result['message'] }}</p>
     @endif
+
 @endif
+
 
 </body>
 </html>
