@@ -1,5 +1,5 @@
 # Base image
-FROM php:8.2-apache
+FROM php:8.4-fpm
 
 # Enable Apache rewrite
 RUN a2enmod rewrite
