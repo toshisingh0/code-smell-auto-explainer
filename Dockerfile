@@ -30,8 +30,12 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
 
 # Clear Laravel cache (root user)
 RUN php artisan config:clear \
- && php artisan route:clear \
- && php artisan view:clear
+    && php artisan cache:clear \
+    && php artisan route:clear \
+    && php artisan view:clear \
+    && php artisan config:cache
+
+
 
 # Fix permissions
 RUN chown -R www-data:www-data storage bootstrap/cache \
