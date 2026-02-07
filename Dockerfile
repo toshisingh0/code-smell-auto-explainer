@@ -28,19 +28,12 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/sites-available/*.conf \
     /etc/apache2/apache2.conf
 
-# Clear Laravel cache (root user)
-RUN php artisan config:clear \
-    && php artisan cache:clear \
-    && php artisan route:clear \
-    && php artisan view:clear \
-    && php artisan config:cache
-
-
-
 # Fix permissions
 RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R 775 storage bootstrap/cache
 
+# ✅ Important: Skip artisan config:cache during build
+# Laravel will use correct Render environment at runtime
+
 # 👇 Apache runs as www-data (LAST LINE)
 USER www-data
-
