@@ -28,14 +28,15 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/sites-available/*.conf \
     /etc/apache2/apache2.conf
 
-# 🔥 LARAVEL PERMISSIONS (MOST IMPORTANT)
-RUN chown -R www-data:www-data /var/www/html \
- && chmod -R 775 storage bootstrap/cache
-
-# Clear Laravel cache
+# Clear Laravel cache (root user)
 RUN php artisan config:clear \
  && php artisan route:clear \
  && php artisan view:clear
 
-# 👇 run Apache as www-data
+# Fix permissions
+RUN chown -R www-data:www-data storage bootstrap/cache \
+ && chmod -R 775 storage bootstrap/cache
+
+# 👇 Apache runs as www-data (LAST LINE)
 USER www-data
+
