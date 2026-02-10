@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\CodeSmells\Rules\FatControllerRule;
-use App\CodeSmells\Rules\GodMethodRule;
+use App\Codesmells\Rules\FatControllerRule;
+use App\Codesmells\Rules\GodMethodRule;
 
 
 

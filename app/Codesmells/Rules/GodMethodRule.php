@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CodeSmells\Rules;
+namespace App\Codesmells\Rules;
 
 class GodMethodRule
 {
