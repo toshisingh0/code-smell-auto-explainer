@@ -43,21 +43,16 @@
             @endforeach
         </ul>
 
-        @foreach($result['explanation']['metrics'] as $k => $v)
-
-            @if(is_array($v))
-                <li>{{ ucfirst($k) }} :
-                    {{ implode(', ', array_keys($v)) }}
-                </li>
-            @else
-                <li>{{ ucfirst($k) }} : {{ $v }}</li>
-            @endif
-
-        @endforeach
-
+        @if(!empty($result['explanation']['metrics']))
+            <ul>
+                @foreach($result['explanation']['metrics'] as $k => $v)
+                    <li>{{ ucfirst($k) }} : {{ $v }}</li>
+                @endforeach
+            </ul>
+        @endif
 
     @else
-        <p>✅ {{ $result['message'] }}</p>
+    <p>✅ {{ $result['message'] ?? 'No code smell detected 🎉' }}</p>
     @endif
 
 @endif
